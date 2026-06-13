@@ -9,6 +9,7 @@ frontend/dist/
 
 .vite/
 
+downloads/
 uploads/
 converted/
 temp/

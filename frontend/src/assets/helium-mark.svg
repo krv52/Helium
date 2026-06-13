@@ -1,0 +1,14 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Helium">
+  <rect x="1" y="1" width="94" height="94" rx="20" fill="#101216"></rect>
+  <rect x="1" y="1" width="94" height="94" rx="20" fill="url(#heliumGlow)" fill-opacity="0.5"></rect>
+  <rect x="1.5" y="1.5" width="93" height="93" rx="19.5" stroke="#5BC8D6" stroke-opacity="0.32" stroke-width="1.5"></rect>
+  <text x="20" y="62" font-family="&#39;Geist&#39;,&#39;Inter&#39;,system-ui,sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5" fill="#F4F6F8">He</text>
+  <text x="20" y="26" font-family="&#39;Geist Mono&#39;,ui-monospace,monospace" font-size="12" font-weight="500" fill="#5BC8D6">2</text>
+  <text x="76" y="80" text-anchor="end" font-family="&#39;Geist Mono&#39;,ui-monospace,monospace" font-size="9" font-weight="500" fill="#79828F">4.0026</text>
+  <defs>
+    <radialGradient id="heliumGlow" cx="0.3" cy="0.1" r="1.1">
+      <stop stop-color="#5BC8D6" stop-opacity="0.22"></stop>
+      <stop offset="0.6" stop-color="#5BC8D6" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+</svg>

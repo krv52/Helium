@@ -446,7 +446,6 @@ def download(
 
     if quality and quality not in QUALITIES:
         raise HTTPException(status_code=400, detail="Invalid quality.")
-
     try:
         with YoutubeDL({"quiet": True, "skip_download": True}) as ydl:
             metadata = ydl.extract_info(url, download=False)

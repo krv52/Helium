@@ -5,6 +5,7 @@ import InfoModal from './components/InfoModal.jsx';
 import LocalFilePanel from './components/LocalFilePanel.jsx';
 import MediaCard from './components/MediaCard.jsx';
 import UrlInput from './components/UrlInput.jsx';
+import heliumMark from './assets/helium-mark.svg';
 import { sanitizeMediaUrl } from './utils/urlSanitizer.js';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
@@ -84,25 +85,35 @@ function App() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark">He</span>
+          <img className="brand-mark" src={heliumMark} alt="" />
           <div>
             <span className="brand-name">Helium</span>
-            <p className="brand-subtitle">yt-dlp powered media downloader</p>
           </div>
+          <span className="version-badge">v0.1</span>
         </div>
 
-        <button
-          className="info-button"
-          type="button"
-          aria-label="Open Helium information"
-          onClick={() => setIsInfoOpen(true)}
-        >
-          i
-        </button>
+        <nav className="topbar-actions" aria-label="Application links">
+          <a
+            className="ghost-button"
+            href="https://github.com/krv52/Helium"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+          <button
+            className="ghost-button icon-button"
+            type="button"
+            aria-label="Open Helium information"
+            onClick={() => setIsInfoOpen(true)}
+          >
+            i
+          </button>
+        </nav>
       </header>
 
-      <section className="tool-layout">
-        <section className="source-card" aria-label="Source input">
+      <section className="hero-panel" aria-label="Source input">
+        <div className="source-card">
           <div className="source-tabs" role="tablist" aria-label="Source type">
             <button
               className={sourceMode === 'url' ? 'source-tab active' : 'source-tab'}
@@ -122,40 +133,61 @@ function App() {
             </button>
           </div>
 
-          {sourceMode === 'url' ? (
-            <UrlInput onAnalyze={handleAnalyze} isLoading={isLoading} />
-          ) : (
-            <LocalFilePanel
-              apiBaseUrl={API_BASE_URL}
-              onError={setError}
-              onAnalyzed={(data) => {
-                setMedia(data);
-                setSourceUrl('');
-                setError('');
-              }}
-            />
-          )}
-        </section>
+          <div className="source-body">
+            <div className="source-heading">
+              <p className="eyebrow">Media toolkit</p>
+              <h1>{sourceMode === 'url' ? 'Analyze a URL' : 'Inspect a local file'}</h1>
+              <p>
+                {sourceMode === 'url'
+                  ? 'Paste a supported media URL, inspect metadata, then download what you need.'
+                  : 'Read local media metadata with ffprobe. Conversion tools are planned.'}
+              </p>
+            </div>
+
+            {sourceMode === 'url' ? (
+              <UrlInput onAnalyze={handleAnalyze} isLoading={isLoading} />
+            ) : (
+              <LocalFilePanel
+                apiBaseUrl={API_BASE_URL}
+                onError={setError}
+                onAnalyzed={(data) => {
+                  setMedia(data);
+                  setSourceUrl('');
+                  setError('');
+                }}
+              />
+            )}
+          </div>
+        </div>
 
         {error && <p className="message error">{error}</p>}
-        {isLoading && <p className="message loading">Analyzing media...</p>}
+        {isLoading && <p className="message loading">Analyzing...</p>}
       </section>
 
-      <HistoryPanel items={history} onSelect={handleAnalyze} />
-
-      {media && (
-        <section className="workspace-stack" aria-label="Media download workspace">
-          <MediaCard media={media} />
-          {media.source_kind !== 'file' && (
-            <DownloadPanel
-              sourceUrl={sourceUrl}
-              apiBaseUrl={API_BASE_URL}
-              availableModes={media.available_modes}
-              onDownloaded={() => saveHistoryItem({ url: sourceUrl, title: media.title })}
-            />
-          )}
-        </section>
-      )}
+      <section className="workspace" aria-label="Media workspace">
+        {media ? (
+          <>
+            <div className="workspace-main">
+              <MediaCard media={media} />
+            </div>
+            <aside className="workspace-sidebar">
+              {media.source_kind !== 'file' && (
+                <DownloadPanel
+                  sourceUrl={sourceUrl}
+                  apiBaseUrl={API_BASE_URL}
+                  availableModes={media.available_modes}
+                  onDownloaded={() => saveHistoryItem({ url: sourceUrl, title: media.title })}
+                />
+              )}
+              <HistoryPanel items={history} onSelect={handleAnalyze} />
+            </aside>
+          </>
+        ) : (
+          <div className="empty-workspace">
+            <HistoryPanel items={history} onSelect={handleAnalyze} />
+          </div>
+        )}
+      </section>
 
       {isInfoOpen && <InfoModal onClose={() => setIsInfoOpen(false)} />}
     </main>

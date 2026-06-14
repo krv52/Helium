@@ -34,9 +34,9 @@ function InfoModal({ onClose }) {
           <article>
             <h3>Links</h3>
             <p>
-              <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-              <span> / </span>
-              <a href="https://github.com/sponsors" target="_blank" rel="noreferrer">Donate</a>
+              <a href="https://github.com/krv52/Helium" target="_blank" rel="noreferrer">GitHub</a>
+{/*              <span> / </span>
+              <a href="https://github.com/sponsors" target="_blank" rel="noreferrer">Donate</a> */}
             </p>
           </article>
           <article>
